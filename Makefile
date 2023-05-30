@@ -6,7 +6,7 @@
 #    By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/03 19:25:52 by ehouot            #+#    #+#              #
-#    Updated: 2023/05/23 12:03:43 by ehouot           ###   ########.fr        #
+#    Updated: 2023/05/30 16:47:04 by ehouot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,12 @@ SRC 		= 	./main.c \
 				./parsing.c \
 				./pathing.c \
 				./count_line.c \
-				./mlx.c \
+				./key_hook.c \
 				./keys.c \
-				
+				./print_sprites.c \
+				./initialize.c \
+				./ft_tabdup.c \
+				./is_door_open.c \
 				
 SRC_PRINTF	=	 $(addprefix $(PRINTF_PATH), ft_printf.c \
 				ft_printf_c_s.c \

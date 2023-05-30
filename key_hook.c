@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_line.c                                       :+:      :+:    :+:   */
+/*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 11:58:42 by ehouot            #+#    #+#             */
-/*   Updated: 2023/05/24 20:14:12 by ehouot           ###   ########.fr       */
+/*   Created: 2023/05/22 13:12:08 by ehouot            #+#    #+#             */
+/*   Updated: 2023/05/30 17:18:17 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	count_line(int fd)
+int	key_hook(int keycode, t_vars *vars)
 {
-	char	*gnl;
-	int		nb_line;
-
-	nb_line = 0;
-	gnl = get_next_line(fd);
-	while (gnl)
-	{
-		free(gnl);
-		gnl = get_next_line(fd);
-		nb_line++;
-	}
-	return (nb_line);
+	if (keycode == 53)
+		ft_escape(vars);
+	if (keycode == 13)
+		ft_backward(vars);
+	if (keycode == 0)
+		ft_left(vars);
+	if (keycode == 1)
+		ft_forward(vars);
+	if (keycode == 2)
+		ft_right(vars);
+	return (0);
 }

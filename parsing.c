@@ -6,12 +6,11 @@
 /*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 19:27:49 by ehouot            #+#    #+#             */
-/*   Updated: 2023/05/23 12:02:30 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/05/30 20:39:11 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdio.h>
 
 void	check_terminal(int argc, char **argv)
 {
@@ -115,27 +114,28 @@ void	check_elements(char **map)
 		exit(ft_printf("Wrong number of element\n"));
 }
 
-char	**parsing(int argc, char **argv)
+char	**parsing(int argc, char **argv, t_path *path)
 {
 	int		fd;
-	int		nb_line;
 	int		i;
 	int		j;
 	char	**map;
 
 	i = 0;
 	j = 0;
-	nb_line = 0;
+	path->nb_line = 0;
 	check_terminal(argc, argv);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		exit(ft_printf("File problem\n"));
-	nb_line = count_line(fd);
+	path->nb_line = count_line(fd);
 	close(fd);
 	fd = open(argv[1], O_RDONLY);
-	map = check_map(fd, nb_line);
+	map = check_map(fd, path->nb_line);
 	check_elements(map);
-	check_closed(map, nb_line);
-	check_pathing(map);
+	check_closed(map, path->nb_line);
+	path->cpy = ft_tabdup(map, *path);
+	check_pathing(path);
+	free_map(path->cpy);
 	return (map);
 }

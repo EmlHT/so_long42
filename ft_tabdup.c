@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_line.c                                       :+:      :+:    :+:   */
+/*   ft_tabdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/23 11:58:42 by ehouot            #+#    #+#             */
-/*   Updated: 2023/05/24 20:14:12 by ehouot           ###   ########.fr       */
+/*   Created: 2022/11/16 09:31:31 by ehouot            #+#    #+#             */
+/*   Updated: 2023/05/30 11:25:08 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	count_line(int fd)
+char	**ft_tabdup(char **s1, t_path p)
 {
-	char	*gnl;
-	int		nb_line;
+	int		i;
+	int		j;
+	char	**dest;
 
-	nb_line = 0;
-	gnl = get_next_line(fd);
-	while (gnl)
+	i = -1;
+	dest = NULL;
+	dest = (char **) malloc ((p.nb_line + 1) * sizeof(char *));
+	while (s1[++i] && (ft_strlen(s1[i]) > 1))
+		dest[i] = (char *) malloc ((ft_strlen(s1[i]) + 1) * sizeof(char));
+	dest[i] = 0;
+	if (!dest)
+		return (0);
+	i = -1;
+	while (s1[++i])
 	{
-		free(gnl);
-		gnl = get_next_line(fd);
-		nb_line++;
+		j = -1;
+		while (s1[i][++j])
+			dest[i][j] = s1[i][j];
+		dest[i][j] = '\0';
 	}
-	return (nb_line);
+	return (dest);
 }

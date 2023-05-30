@@ -6,7 +6,7 @@
 /*   By: ehouot <ehouot@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:02:48 by ehouot            #+#    #+#             */
-/*   Updated: 2023/05/23 12:03:09 by ehouot           ###   ########.fr       */
+/*   Updated: 2023/05/30 20:39:01 by ehouot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 # include <stdarg.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <stdio.h>
 
 typedef struct s_path
 {
 	int		i;
 	int		j;
 	char	**cpy;
+	int		nb_line;
 }				t_path;
 
 typedef struct s_vars
@@ -47,10 +49,14 @@ typedef struct s_vars
 	void	*left_two;
 	void	*right_one;
 	void	*right_two;
-	int		*pos_x;
-	int		*pos_y;
 	int		width;
 	int		height;
+	int		pos_x;
+	int		pos_y;
+	int		door_x;
+	int		door_y;
+	int		nb_obj;
+	int		nb_moves;
 }				t_vars;
 
 /* -- PRINTF -- */
@@ -81,15 +87,30 @@ size_t	ft_strlen(const char *s);
 
 /* -- SO_LONG -- */
 
+# define WALL "./img/wall.xpm"
+# define FLOOR "./img/floor.xpm"
+# define PLAYER "./img/forward_one.xpm"
+# define DOOR "./img/door_closed.xpm"
+# define KEY "./img/red_key.xpm"
+
 int		main(int argc, char **argv);
-char	**parsing(int argc, char **argv);
+char	**parsing(int argc, char **argv, t_path *path);
 int		count_line(int fd);
-void	check_pathing(char **map);
+void	check_pathing(t_path *path);
 int		key_hook(int keycode, t_vars *vars);
 int		ft_escape(t_vars *var);
 void	ft_backward(t_vars *var);
 void	ft_left(t_vars *var);
 void	ft_forward(t_vars *var);
 void	ft_right(t_vars *var);
+void	print_wall(t_vars *var);
+void	print_floor(t_vars *var);
+void	print_door(t_vars *var);
+void	print_player(t_vars *var);
+void	print_key(t_vars *var);
+void	initialize_map(t_vars *var);
+char	**ft_tabdup(char **s1, t_path p);
+int		is_door_open(t_vars *var);
+void	free_map(char **tab);
 
 #endif
